@@ -5,6 +5,11 @@
     <title>Home page</title>
 </head>
 <body>
-<h1>Title</h1>
+<h1>Recipe List</h1>
+<table>
+    <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.description}"></td>
+    </tr>
+</table>
 </body>
 </html>
