@@ -24,14 +24,8 @@ public class UnitOfMeasureRepositoryIT {
     }
 
     @Test
-    public void findByTitleTeaspoon() throws Exception {
+    public void findByTitle() throws Exception {
         Optional<UnitOfMeasure> teaspoon = unitOfMeasureRepository.findByTitle("Teaspoon");
         teaspoon.ifPresent(unitOfMeasure -> assertEquals("Teaspoon", unitOfMeasure.getTitle()));
-    }
-
-    @Test
-    public void findByTitleTablespoon() throws Exception {
-        Optional<UnitOfMeasure> tablespoon = unitOfMeasureRepository.findByTitle("Tablespoon");
-        tablespoon.ifPresent(unitOfMeasure -> assertEquals("Tablespoon", unitOfMeasure.getTitle()));
     }
 }
