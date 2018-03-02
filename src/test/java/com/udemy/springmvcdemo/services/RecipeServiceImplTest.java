@@ -1,5 +1,7 @@
 package com.udemy.springmvcdemo.services;
 
+import com.udemy.springmvcdemo.converters.RecipeCommandToRecipe;
+import com.udemy.springmvcdemo.converters.RecipeToRecipeCommand;
 import com.udemy.springmvcdemo.domain.Recipe;
 import com.udemy.springmvcdemo.repositories.RecipeRepository;
 import org.junit.Before;
@@ -22,11 +24,17 @@ public class RecipeServiceImplTest {
     @Mock
     private RecipeRepository recipeRepository;
 
+    @Mock
+    private RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    private RecipeCommandToRecipe recipeCommandToRecipe;
+
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
