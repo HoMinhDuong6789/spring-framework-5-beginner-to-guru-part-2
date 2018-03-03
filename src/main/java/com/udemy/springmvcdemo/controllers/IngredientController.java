@@ -1,6 +1,8 @@
 package com.udemy.springmvcdemo.controllers;
 
 import com.udemy.springmvcdemo.commands.IngredientCommand;
+import com.udemy.springmvcdemo.commands.RecipeCommand;
+import com.udemy.springmvcdemo.commands.UnitOfMeasureCommand;
 import com.udemy.springmvcdemo.services.IngredientService;
 import com.udemy.springmvcdemo.services.RecipeService;
 import com.udemy.springmvcdemo.services.UnitOfMeasureService;
@@ -53,5 +55,17 @@ public class IngredientController {
         log.debug("saved receipe id:" + savedCommand.getRecipeId());
         log.debug("saved ingredient id:" + savedCommand.getId());
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
+    }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId, Model model) {
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+        model.addAttribute("uomList", unitOfMeasureService.listAllUnits());
+        return "recipe/ingredient_form";
     }
 }
