@@ -17,7 +17,7 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<!--/*@thymesVar id="ingredient" type="guru.springframework.commands.IngredientCommand"*/-->
+<!--/*@thymesVar id="ingredient" type="com.udemy.springmvcdemo.commands.IngredientCommand"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -36,8 +36,8 @@
                             </thead>
                             <tr>
                                 <td th:text="${ingredient.id}">1</td>
-                                <td th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.title} + ' ' + ${ingredient.description}">ingredient </td>
-                                <td><a href="#">Update</a></td>
+                                <td th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.title} + ' ' + ${ingredient.description}">Ingredient</td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${ingredient.recipeId} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a></td>
                                 <td><a href="#">Delete</a></td>
                             </tr>
                         </table>
