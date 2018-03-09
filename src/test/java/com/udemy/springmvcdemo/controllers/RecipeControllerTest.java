@@ -2,6 +2,7 @@ package com.udemy.springmvcdemo.controllers;
 
 import com.udemy.springmvcdemo.commands.RecipeCommand;
 import com.udemy.springmvcdemo.domain.Recipe;
+import com.udemy.springmvcdemo.exceptions.NotFoundException;
 import com.udemy.springmvcdemo.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,5 +85,13 @@ public class RecipeControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
         verify(recipeService, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
     }
 }
