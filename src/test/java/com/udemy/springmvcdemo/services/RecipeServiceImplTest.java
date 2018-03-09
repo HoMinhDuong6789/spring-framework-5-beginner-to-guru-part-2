@@ -4,6 +4,7 @@ import com.udemy.springmvcdemo.commands.RecipeCommand;
 import com.udemy.springmvcdemo.converters.RecipeCommandToRecipe;
 import com.udemy.springmvcdemo.converters.RecipeToRecipeCommand;
 import com.udemy.springmvcdemo.domain.Recipe;
+import com.udemy.springmvcdemo.exceptions.NotFoundException;
 import com.udemy.springmvcdemo.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,6 +62,13 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, never()).findAll();
     }
 
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        Recipe recipeReturned = recipeService.findById(1L);
+    }
+
     @Test
     public void getRecipeCommandByIdTest() throws Exception {
         Recipe recipe = new Recipe();
@@ -82,4 +90,6 @@ public class RecipeServiceImplTest {
         recipeService.deleteById(idToDelete);
         verify(recipeRepository, times(1)).deleteById(anyLong());
     }
+
+
 }
