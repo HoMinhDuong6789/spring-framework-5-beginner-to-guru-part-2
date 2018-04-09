@@ -20,12 +20,13 @@ public class UnitOfMeasureRepositoryIT {
     UnitOfMeasureRepository unitOfMeasureRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+        unitOfMeasureRepository.deleteAll();
     }
 
     @Test
-    public void findByTitle() throws Exception {
+    public void findByTitle() {
         Optional<UnitOfMeasure> teaspoon = unitOfMeasureRepository.findByTitle("Teaspoon");
-        teaspoon.ifPresent(unitOfMeasure -> assertEquals("Teaspoon", unitOfMeasure.getTitle()));
+        teaspoon.ifPresent(unitOfMeasure -> assertEquals("Teaspoon", unitOfMeasure.toString()));
     }
 }
